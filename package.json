@@ -1,5 +1,5 @@
 {
-  "name": "mesto-react",
+  "name": "react-mesto-auth",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,7 +17,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://it-limon.github.io/mesto-react/",
+  "homepage": "https://it-limon.github.io/",
   "eslintConfig": {
     "extends": [
       "react-app",
