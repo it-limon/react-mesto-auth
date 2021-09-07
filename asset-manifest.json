@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/mesto-react-auth/static/css/main.fb2e898f.chunk.css",
-    "main.js": "/mesto-react-auth/static/js/main.ff5fe2a6.chunk.js",
-    "main.js.map": "/mesto-react-auth/static/js/main.ff5fe2a6.chunk.js.map",
-    "runtime-main.js": "/mesto-react-auth/static/js/runtime-main.8035386c.js",
-    "runtime-main.js.map": "/mesto-react-auth/static/js/runtime-main.8035386c.js.map",
-    "static/js/2.0026b6f6.chunk.js": "/mesto-react-auth/static/js/2.0026b6f6.chunk.js",
-    "static/js/2.0026b6f6.chunk.js.map": "/mesto-react-auth/static/js/2.0026b6f6.chunk.js.map",
-    "index.html": "/mesto-react-auth/index.html",
-    "static/css/main.fb2e898f.chunk.css.map": "/mesto-react-auth/static/css/main.fb2e898f.chunk.css.map",
-    "static/js/2.0026b6f6.chunk.js.LICENSE.txt": "/mesto-react-auth/static/js/2.0026b6f6.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/mesto-react-auth/static/media/button-like.1ad06e85.svg",
-    "static/media/header-logo.bbe2a6ea.svg": "/mesto-react-auth/static/media/header-logo.bbe2a6ea.svg"
+    "main.css": "/react-mesto-auth/static/css/main.a2b3c36c.chunk.css",
+    "main.js": "/react-mesto-auth/static/js/main.078f1521.chunk.js",
+    "main.js.map": "/react-mesto-auth/static/js/main.078f1521.chunk.js.map",
+    "runtime-main.js": "/react-mesto-auth/static/js/runtime-main.0889075b.js",
+    "runtime-main.js.map": "/react-mesto-auth/static/js/runtime-main.0889075b.js.map",
+    "static/js/2.a34f82a3.chunk.js": "/react-mesto-auth/static/js/2.a34f82a3.chunk.js",
+    "static/js/2.a34f82a3.chunk.js.map": "/react-mesto-auth/static/js/2.a34f82a3.chunk.js.map",
+    "index.html": "/react-mesto-auth/index.html",
+    "static/css/main.a2b3c36c.chunk.css.map": "/react-mesto-auth/static/css/main.a2b3c36c.chunk.css.map",
+    "static/js/2.a34f82a3.chunk.js.LICENSE.txt": "/react-mesto-auth/static/js/2.a34f82a3.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/react-mesto-auth/static/media/button-like.1ad06e85.svg",
+    "static/media/header-logo.bbe2a6ea.svg": "/react-mesto-auth/static/media/header-logo.bbe2a6ea.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8035386c.js",
-    "static/js/2.0026b6f6.chunk.js",
-    "static/css/main.fb2e898f.chunk.css",
-    "static/js/main.ff5fe2a6.chunk.js"
+    "static/js/runtime-main.0889075b.js",
+    "static/js/2.a34f82a3.chunk.js",
+    "static/css/main.a2b3c36c.chunk.css",
+    "static/js/main.078f1521.chunk.js"
   ]
 }
