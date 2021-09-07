@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import PopupWithForm from './PopupWithForm';
-import FormField from './FormField';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
@@ -48,8 +47,8 @@ function EditProfilePopup(props) {
       title='Редактировать профиль'
       btnSubmitCaption='Сохранить'
     >
-      <FormField type='text' name='profile-name' value={name || ''} onChange={handleNameChange} placeholder='Имя' minLength={2} maxLength={40} />
-      <FormField type='text' name='profile-job' value={description || ''} onChange={handleDescriptionChange} placeholder='О себе' minLength={2} maxLength={200} />
+      <input className='form__input' type='text' name='profile-name' value={name || ''} onChange={handleNameChange} placeholder='Имя' minLength={2} maxLength={40} />
+      <input className='form__input' type='text' name='profile-job' value={description || ''} onChange={handleDescriptionChange} placeholder='О себе' minLength={2} maxLength={200} />
     </PopupWithForm>
   );
 }

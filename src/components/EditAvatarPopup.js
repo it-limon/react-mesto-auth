@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import PopupWithForm from './PopupWithForm';
-import FormField from './FormField';
 
 function EditAvatarPopup(props) {
   const {
@@ -32,7 +31,7 @@ function EditAvatarPopup(props) {
       title='Обновить аватар'
       btnSubmitCaption='Сохранить'
     >
-      <FormField type='url' name='avatar-link' placeholder='Ссылка на аватар' ref={avatarRef} />
+      <input className='form__input' type='url' name='avatar-link' placeholder='Ссылка на аватар' ref={avatarRef} />
     </PopupWithForm>
   );
 }

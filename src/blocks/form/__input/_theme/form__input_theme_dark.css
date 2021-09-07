@@ -1,0 +1,7 @@
+.form__input_theme_dark {
+  color: #ccc;
+  outline-color: #fefefe;
+  background-color: #000;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}

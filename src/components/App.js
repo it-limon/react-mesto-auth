@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Route, Switch } from "react-router-dom";
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -6,6 +7,7 @@ import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import Register from './Register';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -88,16 +90,24 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      <Main
-        cards={cards}
-        onEditProfile={handleButtonEditProfileClick}
-        onAddCard={handleButtonAddCardClick}
-        onEditAvatar={handleButtonEditAvatarClick}
-        onCardClick={setSelectedCard}
-        onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
-      />
-      <Footer />
+
+      <Switch>
+        <Route exact path='/'>
+          <Main
+            cards={cards}
+            onEditProfile={handleButtonEditProfileClick}
+            onAddCard={handleButtonAddCardClick}
+            onEditAvatar={handleButtonEditAvatarClick}
+            onCardClick={setSelectedCard}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+          />
+          <Footer />
+        </Route>
+        <Route exact path='/sign-up'>
+          <Register />
+        </Route>
+      </Switch>
 
       <EditProfilePopup
         isOpen={isPopupProfileOpen}

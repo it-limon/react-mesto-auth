@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import PopupWithForm from './PopupWithForm';
-import FormField from './FormField';
 
 function AddPlacePopup(props) {
   const {
@@ -37,8 +36,8 @@ function AddPlacePopup(props) {
       title='Новое место'
       btnSubmitCaption='Создать'
     >
-      <FormField type='text' name='card-name' value={name || ''} onChange={handleNameChange} placeholder='Название' minLength={2} maxLength={30} />
-      <FormField type='url' name='card-link' value={link || ''} onChange={handleLinkChange} placeholder='Ссылка на картинку' />
+      <input className='form__input' type='text' name='card-name' value={name || ''} onChange={handleNameChange} placeholder='Название' minLength={2} maxLength={30} />
+      <input className='form__input' type='url' name='card-link' value={link || ''} onChange={handleLinkChange} placeholder='Ссылка на картинку' />
     </PopupWithForm>
   );
 }
