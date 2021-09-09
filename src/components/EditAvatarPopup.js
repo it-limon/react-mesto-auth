@@ -31,7 +31,7 @@ function EditAvatarPopup(props) {
       title='Обновить аватар'
       btnSubmitCaption='Сохранить'
     >
-      <input className='form__input' type='url' name='avatar-link' placeholder='Ссылка на аватар' ref={avatarRef} />
+      <input className='form__input' type='url' name='avatar-link' placeholder='Ссылка на аватар' ref={avatarRef} required />
     </PopupWithForm>
   );
 }

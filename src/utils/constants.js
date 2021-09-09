@@ -5,3 +5,9 @@ export const apiOptions = {
     'Content-Type': 'application/json'
   }
 }
+
+export const appRoutes = {
+  root: '/',
+  signIn: '/sign-in',
+  signUp: '/sign-up'
+}

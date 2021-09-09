@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import PopupWithForm from './PopupWithForm';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { AppContext } from '../contexts/AppContext';
 
 function EditProfilePopup(props) {
   const {
@@ -13,7 +13,7 @@ function EditProfilePopup(props) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(AppContext).currentUser;
 
   useEffect(() => {
     setName(currentUser.name);
@@ -47,8 +47,8 @@ function EditProfilePopup(props) {
       title='Редактировать профиль'
       btnSubmitCaption='Сохранить'
     >
-      <input className='form__input' type='text' name='profile-name' value={name || ''} onChange={handleNameChange} placeholder='Имя' minLength={2} maxLength={40} />
-      <input className='form__input' type='text' name='profile-job' value={description || ''} onChange={handleDescriptionChange} placeholder='О себе' minLength={2} maxLength={200} />
+      <input className='form__input' type='text' name='profile-name' value={name || ''} onChange={handleNameChange} placeholder='Имя' minLength={2} maxLength={40} required />
+      <input className='form__input' type='text' name='profile-job' value={description || ''} onChange={handleDescriptionChange} placeholder='О себе' minLength={2} maxLength={200} required />
     </PopupWithForm>
   );
 }

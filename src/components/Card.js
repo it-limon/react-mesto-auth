@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { AppContext } from '../contexts/AppContext';
 
 function Card(props) {
   const {
@@ -10,7 +10,7 @@ function Card(props) {
     owner
   } = props.data;
 
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(AppContext).currentUser;
 
   const isOwn = owner._id === currentUser._id;
   const isLiked = likes.some(like => like._id === currentUser._id);

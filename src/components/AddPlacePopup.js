@@ -36,8 +36,8 @@ function AddPlacePopup(props) {
       title='Новое место'
       btnSubmitCaption='Создать'
     >
-      <input className='form__input' type='text' name='card-name' value={name || ''} onChange={handleNameChange} placeholder='Название' minLength={2} maxLength={30} />
-      <input className='form__input' type='url' name='card-link' value={link || ''} onChange={handleLinkChange} placeholder='Ссылка на картинку' />
+      <input className='form__input' type='text' name='card-name' value={name || ''} onChange={handleNameChange} placeholder='Название' minLength={2} maxLength={30} required />
+      <input className='form__input' type='url' name='card-link' value={link || ''} onChange={handleLinkChange} placeholder='Ссылка на картинку' required />
     </PopupWithForm>
   );
 }

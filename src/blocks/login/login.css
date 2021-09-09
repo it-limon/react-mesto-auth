@@ -1,4 +1,4 @@
-.register {
+.login {
   padding-top: 40px;
   display: flex;
   flex-direction: column;
@@ -6,7 +6,7 @@
 }
 
 @media (min-width: 880px) {
-  .register {
+  .login {
     padding-top: 26px;
   }
 }

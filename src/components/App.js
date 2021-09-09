@@ -8,8 +8,10 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Register from './Register';
+import Login from './Login';
 import api from '../utils/api';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { AppContext } from '../contexts/AppContext';
+import { appRoutes } from '../utils/constants';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -19,6 +21,7 @@ function App() {
   const [isPopupCardOpen, setIsPopupCardOpen] = useState(false);
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   const handleButtonEditProfileClick = () => setIsPopupProfileOpen(true);
   const handleButtonAddCardClick = () => setIsPopupCardOpen(true);
@@ -88,11 +91,9 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <Header />
-
+    <AppContext.Provider value={{currentUser, loggedIn}}>
       <Switch>
-        <Route exact path='/'>
+        <Route exact path={appRoutes.root}>
           <Main
             cards={cards}
             onEditProfile={handleButtonEditProfileClick}
@@ -104,8 +105,11 @@ function App() {
           />
           <Footer />
         </Route>
-        <Route exact path='/sign-up'>
+        <Route exact path={appRoutes.signUp}>
           <Register />
+        </Route>
+        <Route exact path={appRoutes.signIn}>
+          <Login />
         </Route>
       </Switch>
 
@@ -131,7 +135,7 @@ function App() {
         card={selectedCard}
         onClose={closeAllPopups}
       />
-    </CurrentUserContext.Provider>
+    </AppContext.Provider>
   );
 }
 
