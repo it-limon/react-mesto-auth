@@ -5,6 +5,7 @@ import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import InfoTooltip from './InfoTooltip';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
@@ -20,7 +21,7 @@ function App() {
   const [isPopupCardOpen, setIsPopupCardOpen] = useState(false);
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   const handleButtonEditProfileClick = () => setIsPopupProfileOpen(true);
   const handleButtonAddCardClick = () => setIsPopupCardOpen(true);
@@ -133,6 +134,11 @@ function App() {
 
       <ImagePopup
         card={selectedCard}
+        onClose={closeAllPopups}
+      />
+
+      <InfoTooltip
+        isOpen={isPopupAvatarOpen}
         onClose={closeAllPopups}
       />
     </AppContext.Provider>

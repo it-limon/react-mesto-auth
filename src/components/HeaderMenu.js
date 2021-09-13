@@ -1,18 +1,17 @@
-import { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { appRoutes } from '../utils/constants';
-import { AppContext } from '../contexts/AppContext';
 import PropTypes from 'prop-types';
 
 const HeaderMenu = (props) => {
   const hst = useHistory();
-  const loggedIn = useContext(AppContext).loggedIn;
+
+  const { isMobile, isInactive, loggedIn } = props;
 
   return (
     <nav
       className={`header__menu${
-        props.isMobile ? ' header__menu_type_mobile' : ' header__menu_type_full'
-      }${props.isInactive && props.isMobile ? ' header__menu_inactive' : ''}`}
+        isInactive && isMobile ? ' header__menu_inactive' : ''
+      }${isMobile ? ' header__menu_mobile' : ''}`}
     >
       {loggedIn && <h2 className='header__menu-heading'>EmaiEmail@Email</h2>}
       <ul className='header__menu-links'>
@@ -39,6 +38,7 @@ const HeaderMenu = (props) => {
 HeaderMenu.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   isInactive: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 export default HeaderMenu;

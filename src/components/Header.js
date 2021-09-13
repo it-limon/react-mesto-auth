@@ -46,10 +46,10 @@ function Header(props) {
             <span className={`header__burger-item${isActiveMenu ? ' header__burger-item_active' : ''}`}></span>
           </div>
         ) : (
-          <HeaderMenu isMobile={false} isInactive={false} />
+          <HeaderMenu isInactive={false} loggedIn={loggedIn} />
         )}
       </div>
-      {loggedIn && <HeaderMenu isMobile={isMobile} isInactive={!isActiveMenu} />}
+      {loggedIn && <HeaderMenu isMobile={isMobile} isInactive={!isActiveMenu} loggedIn={loggedIn} />}
     </header>
   );
 }

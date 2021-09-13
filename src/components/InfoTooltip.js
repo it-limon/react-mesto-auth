@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-const InfoTooltip = () => {
-  const { onClose } = props;
+const InfoTooltip = (props) => {
+  const { isOpen, onClose } = props;
 
   return (
     <section className={`popup${isOpen ? 'popup_opened' : ''}`}>

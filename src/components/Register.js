@@ -80,10 +80,6 @@ const Register = () => {
           </Link>
         </div>
       </section>
-      <InfoTooltip
-        isOpen={isPopupAvatarOpen}
-        onClose={}
-      />
     </>
   );
 };
