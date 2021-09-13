@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Header from "./Header";
@@ -7,6 +7,17 @@ import { appRoutes } from "../utils/constants";
 
 const Login = () => {
   const loggedIn = useContext(AppContext).loggedIn;
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (evt) => {
+    setEmail(evt.target.value);
+  };
+
+  const handlePasswordChange = (evt) => {
+    setPassword(evt.target.value);
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -24,16 +35,22 @@ const Login = () => {
           <h2 className="form__heading form__heading_theme_dark">Вход</h2>
           <input
             className="form__input form__input_theme_dark"
-            type="email"
-            placeholder="Email"
+            name='login-name'
+            type='email'
+            placeholder='Email'
+            value={email || ''}
+            onChange={handleEmailChange}
             required
           />
           <input
             className="form__input form__input_theme_dark"
-            type="password"
-            placeholder="Пароль"
+            name='login-password'
+            type='password'
+            placeholder='Пароль'
             minLength={8}
             maxLength={15}
+            value={password || ''}
+            onChange={handlePasswordChange}
             required
           />
           <button

@@ -1,33 +1,32 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import headerLogo from '../images/header-logo.svg';
 import HeaderMenu from './HeaderMenu';
-import { AppContext } from '../contexts/AppContext';
 import { appRoutes } from '../utils/constants';
 
 const MAX_MOBILE_WIDTH = 767;
 
 function Header(props) {
-  const loggedIn = useContext(AppContext).loggedIn;
+  const loggedIn = props.loggedIn;
 
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(
     window.innerWidth <= MAX_MOBILE_WIDTH
   );
 
-  const resizeWindow = () => {
+  const resizeWindow = useCallback(() => {
     const isMobileNew = window.innerWidth <= MAX_MOBILE_WIDTH;
     if (isMobileNew !== isMobile) {
       setIsMobile(isMobileNew);
     }
-  };
+  }, [isMobile]);
 
   useEffect(() => {
     window.addEventListener('resize', resizeWindow);
 
     return () => window.removeEventListener('resize', resizeWindow);
-  }, [isMobile, resizeWindow]);
+  }, [resizeWindow]);
 
   const handleBurgerClick = () => {
     setIsActiveMenu(!isActiveMenu);

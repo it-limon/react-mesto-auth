@@ -6,6 +6,10 @@ export const apiOptions = {
   }
 }
 
+export const authOptions = {
+  baseUrl: 'https://auth.nomoreparties.co'
+}
+
 export const appRoutes = {
   root: '/',
   signIn: '/sign-in',

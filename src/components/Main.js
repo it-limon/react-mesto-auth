@@ -17,10 +17,11 @@ function Main(props) {
   } = props;
 
   const currentUser = useContext(AppContext).currentUser;
+  const loggedIn = useContext(AppContext).loggedIn;
 
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn} />
       <main className='content'>
         <section className='profile'>
           <button className='profile__button-edit-avatar' type='button' aria-label='Обновить аватар' onClick={onEditAvatar}>

@@ -20,7 +20,7 @@ function App() {
   const [isPopupCardOpen, setIsPopupCardOpen] = useState(false);
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleButtonEditProfileClick = () => setIsPopupProfileOpen(true);
   const handleButtonAddCardClick = () => setIsPopupCardOpen(true);
