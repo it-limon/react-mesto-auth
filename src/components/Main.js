@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Header from './Header';
+import Footer from './Footer';
 import { AppContext } from '../contexts/AppContext';
 
 function Main(props) {
@@ -49,6 +50,7 @@ function Main(props) {
           </ul>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

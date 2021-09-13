@@ -11,7 +11,6 @@ const ProtectedRoute = ({ component: Component, ...otherProps }) => {
     <Route>
       {loggedIn ? <Component {...otherProps} /> : <Redirect to={appRoutes.signIn} /> }
     </Route>
-
   );
 }
 

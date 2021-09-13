@@ -17,7 +17,9 @@
 @import url('./blocks/header/__burger-item/header__burger-item.css');
 @import url('./blocks/header/__burger-item/_active/header__burger-item_active.css');
 @import url('./blocks/header/__menu/header__menu.css');
-@import url('./blocks/header/__menu/_active/header__menu_active.css');
+@import url('./blocks/header/__menu/_inactive/header__menu_inactive.css');
+@import url('./blocks/header/__menu/_type/header__menu_type_full.css');
+@import url('./blocks/header/__menu/_type/header__menu_type_mobile.css');
 @import url('./blocks/header/__menu-heading/header__menu-heading.css');
 @import url('./blocks/header/__menu-links/header__menu-links.css');
 
@@ -74,6 +76,9 @@
 
 /* button */
 @import url('./blocks/button/button.css');
+
+/* link */
+@import url('./blocks/link/link.css');
 
 /* register */
 @import url('./blocks/register/register.css');

@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Route, Switch } from "react-router-dom";
-import Header from './Header';
+import { Redirect, Route, Switch } from "react-router-dom";
 import Main from './Main';
-import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Register from './Register';
 import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/api';
 import { AppContext } from '../contexts/AppContext';
 import { appRoutes } from '../utils/constants';
@@ -93,23 +92,24 @@ function App() {
   return (
     <AppContext.Provider value={{currentUser, loggedIn}}>
       <Switch>
-        <Route exact path={appRoutes.root}>
-          <Main
-            cards={cards}
-            onEditProfile={handleButtonEditProfileClick}
-            onAddCard={handleButtonAddCardClick}
-            onEditAvatar={handleButtonEditAvatarClick}
-            onCardClick={setSelectedCard}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
-          <Footer />
-        </Route>
+        <ProtectedRoute
+          exact
+          path={appRoutes.root}
+          loggedIn={loggedIn}
+          cards={cards}
+          onEditProfile={handleButtonEditProfileClick}
+          onAddCard={handleButtonAddCardClick}
+          onEditAvatar={handleButtonEditAvatarClick}
+          onCardClick={setSelectedCard}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          component={Main}
+        />
         <Route exact path={appRoutes.signUp}>
-          <Register />
+          {loggedIn ? <Redirect to={appRoutes.root} /> : <Register />}
         </Route>
         <Route exact path={appRoutes.signIn}>
-          <Login />
+          {loggedIn ? <Redirect to={appRoutes.root} /> : <Login />}
         </Route>
       </Switch>
 

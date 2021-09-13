@@ -24,7 +24,7 @@ const Register = () => {
         </form>
         <div className='register__signin'>
           <p className='register__question'>Уже зарегистрированы?</p>
-          <Link className='register__link' to={appRoutes.signIn}>Войти</Link>
+          <Link className='link register__link' to={appRoutes.signIn}>Войти</Link>
         </div>
       </section>
     </>
