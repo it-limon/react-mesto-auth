@@ -1,15 +1,11 @@
 import { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import auth from '../utils/auth';
 import { AppContext } from '../contexts/AppContext';
-import { appRoutes } from '../utils/constants';
 import Header from './Header';
 
 const Login = () => {
   const showInfoToolTip = useContext(AppContext).showInfoToolTip;
   const handleLogin = useContext(AppContext).handleLogin;
-
-  const hst = useHistory();
 
   const [loginData, setLoginData] = useState({});
   const handleChange = (evt) => {
@@ -28,7 +24,6 @@ const Login = () => {
         setLoginData({});
         localStorage.setItem('jwt', data.token);
         handleLogin();
-        hst.push(appRoutes.root);
       } else {
         showInfoToolTip(true);
       }

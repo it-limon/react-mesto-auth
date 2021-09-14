@@ -6,7 +6,7 @@ import { AppContext } from '../contexts/AppContext';
 
 const HeaderMenu = (props) => {
   const hst = useHistory();
-  const email = useContext(AppContext).currentEmail;
+  const user = useContext(AppContext).currentUser;
   const handleLogout = useContext(AppContext).handleLogout;
 
   const { isMobile, isInactive, loggedIn } = props;
@@ -23,7 +23,7 @@ const HeaderMenu = (props) => {
         isInactive && isMobile ? ' header__menu_inactive' : ''
       }${isMobile ? ' header__menu_mobile' : ''}`}
     >
-      {loggedIn && <h2 className='header__menu-heading'>{email}</h2>}
+      {loggedIn && <h2 className='header__menu-heading'>{user.email}</h2>}
       <ul className='header__menu-links'>
         {loggedIn ? (
           <li><button className='link header__menu-link header__menu-button' onClick={signOut}>Выйти</button></li>

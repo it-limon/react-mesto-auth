@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
@@ -19,7 +19,6 @@ function App() {
   const hst = useHistory();
 
   const [currentUser, setCurrentUser] = useState({});
-  const [currentEmail, setCurrentEmail] = useState('');
   const [cards, setCards] = useState([]);
 
   const [isPopupProfileOpen, setIsPopupProfileOpen] = useState(false);
@@ -47,25 +46,19 @@ function App() {
     setIsInfoTooltipOpen(true);
   };
 
-  useEffect(() => {
-    const promises = [api.getUserInfo(), api.getInitialCards()];
-
-    Promise.all(promises)
-      .then(([userInfo, initialCards]) => {
-        setCurrentUser(userInfo);
-        setCards(initialCards);
-      })
-      .catch(err => console.log(err));
-  }, []);
-
-  useEffect(() => {
+  const loadData = useCallback(() => {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      auth.getContent(jwt)
-      .then((authInfo) => {
-        setCurrentEmail(authInfo.data.email);
+      const promises = [auth.getContent(jwt), api.getUserInfo(), api.getInitialCards()];
 
+      Promise.all(promises)
+      .then(([authInfo, userInfo, initialCards]) => {
+        setCurrentUser({
+          ...userInfo,
+          email: authInfo.data.email
+        });
+        setCards(initialCards);
         setLoggedIn(true);
         hst.push(appRoutes.root);
       })
@@ -73,13 +66,12 @@ function App() {
     }
   }, [hst]);
 
-  const handleLogin = () => {
-    setLoggedIn(true);
-  }
+  useEffect(() => {
+    loadData();
+  }, [loadData, hst]);
 
-  const handleLogout = () => {
-    setLoggedIn(false);
-  }
+  const handleLogin = () => loadData();
+  const handleLogout = () => setLoggedIn(false);
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -127,7 +119,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{currentUser, currentEmail, loggedIn, showInfoToolTip, handleLogin, handleLogout}}>
+    <AppContext.Provider value={{currentUser, loggedIn, showInfoToolTip, handleLogin, handleLogout}}>
       <Switch>
         <ProtectedRoute
           exact
