@@ -12,7 +12,7 @@ function PopupWithForm(props) {
   } = props;
 
   return (
-    <section className={`popup popup-${name} ${isOpen ? 'popup_opened' : ''}`}>
+    <section className={`popup popup-${name}${isOpen ? ' popup_opened' : ''}`}>
       <div className='popup__container'>
         <form className={`form form-${name}`} name={`form-${name}`} onSubmit={onSubmit}>
           <h2 className='form__heading'>{title}</h2>

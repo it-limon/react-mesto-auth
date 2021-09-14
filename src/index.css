@@ -21,6 +21,8 @@
 @import url('./blocks/header/__menu/_mobile/header__menu_mobile.css');
 @import url('./blocks/header/__menu-heading/header__menu-heading.css');
 @import url('./blocks/header/__menu-links/header__menu-links.css');
+@import url('./blocks/header/__menu-link/header__menu-link.css');
+@import url('./blocks/header/__menu-button/header__menu-button.css');
 
 /* profile */
 @import url('./blocks/profile/profile.css');
@@ -72,6 +74,11 @@
 @import url('./blocks/form/__button-submit/form__button-submit.css');
 @import url('./blocks/form/__button-submit/_disabled/form__button-submit_disabled.css');
 @import url('./blocks/form/__button-submit/_theme/form__button-submit_theme_dark.css');
+
+/* tooltip */
+@import url('./blocks/tooltip/tooltip.css');
+@import url('./blocks/tooltip/tooltip__heading/tooltip__heading.css');
+@import url('./blocks/tooltip/tooltip__image/tooltip__image.css');
 
 /* button */
 @import url('./blocks/button/button.css');

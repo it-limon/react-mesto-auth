@@ -1,42 +1,40 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import Header from './Header';
+import { useState, useContext } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import auth from '../utils/auth';
-import { appRoutes } from '../utils/constants';
 import { AppContext } from '../contexts/AppContext';
+import { appRoutes } from '../utils/constants';
+import Header from './Header';
 
 const Register = () => {
-  const loggedIn = useContext(AppContext).loggedIn;
+  const showInfoToolTip = useContext(AppContext).showInfoToolTip;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const hst = useHistory();
 
-  const handleEmailChange = (evt) => {
-    setEmail(evt.target.value);
-  };
-
-  const handlePasswordChange = (evt) => {
-    setPassword(evt.target.value);
+  const [registerData, setRegisterData] = useState({});
+  const handleChange = (evt) => {
+    setRegisterData({
+      ...registerData,
+      [evt.target.name]: evt.target.value,
+    });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    auth.register(email, password)
-    .then(res => {
-      if (res) {
-          this.props.history.push(appRoutes.root);
-      } else {
-        console.log('Что-то пошло не так!');
-      }
-    });
+    auth
+      .register(registerData.email, registerData.password)
+      .then(() => {
+        hst.push(appRoutes.signIn);
+        showInfoToolTip(false);
+      })
+      .catch(() => {
+        showInfoToolTip(true);
+      });
   };
 
   return (
     <>
-      <Header loggedIn={loggedIn} />
+      <Header />
       <section className='register'>
         <form
           className='form form_theme_dark'
@@ -48,22 +46,22 @@ const Register = () => {
           </h2>
           <input
             className='form__input form__input_theme_dark'
-            name='register-name'
+            name='email'
             type='email'
             placeholder='Email'
-            value={email || ''}
-            onChange={handleEmailChange}
+            value={registerData.email || ''}
+            onChange={handleChange}
             required
           />
           <input
             className='form__input form__input_theme_dark'
-            name='register-password'
+            name='password'
             type='password'
             placeholder='Пароль'
             minLength={8}
             maxLength={15}
-            value={password || ''}
-            onChange={handlePasswordChange}
+            value={registerData.password || ''}
+            onChange={handleChange}
             required
           />
           <button
@@ -83,7 +81,5 @@ const Register = () => {
     </>
   );
 };
-
-Register.propTypes = {};
 
 export default Register;

@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import headerLogo from '../images/header-logo.svg';
 import HeaderMenu from './HeaderMenu';
-import { appRoutes } from '../utils/constants';
+import { useContext } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
 const MAX_MOBILE_WIDTH = 767;
 
-function Header(props) {
-  const loggedIn = props.loggedIn;
+function Header() {
+  const loggedIn = useContext(AppContext).loggedIn;
 
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(
@@ -35,9 +34,7 @@ function Header(props) {
   return (
     <header className='header'>
       <div className='header__containter'>
-        <Link to={appRoutes.root}>
-          <img className='header__logo' src={headerLogo} alt='Место: Россия' />
-        </Link>
+        <img className='header__logo' src={headerLogo} alt='Место: Россия' />
         {loggedIn ? (
           <div
             className={`button header__burger${isActiveMenu ? ' header__burger_active' : ''}`}
@@ -46,16 +43,12 @@ function Header(props) {
             <span className={`header__burger-item${isActiveMenu ? ' header__burger-item_active' : ''}`}></span>
           </div>
         ) : (
-          <HeaderMenu isInactive={false} loggedIn={loggedIn} />
+          <HeaderMenu isMobile={false} isInactive={false} loggedIn={false} />
         )}
       </div>
       {loggedIn && <HeaderMenu isMobile={isMobile} isInactive={!isActiveMenu} loggedIn={loggedIn} />}
     </header>
   );
 }
-
-Header.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
-};
 
 export default Header;

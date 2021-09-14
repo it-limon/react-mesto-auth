@@ -5,25 +5,39 @@ class Auth {
     this._baseUrl = options.baseUrl;
   }
 
+  _promiseHandler(promise) {
+    return promise
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`));
+  }
+
   register(email, password) {
-    return fetch(`${authOptions.baseUrl}/signup`, {
+    return this._promiseHandler(fetch(`${authOptions.baseUrl}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({email, password})
-    })
-    .then(response => {
-      try {
-        if (response.status === 200){
-          return response.json();
-        }
-      } catch (e) {
-        return (e)
+    }));
+  }
+
+  authorize = (email, password) => {
+    return this._promiseHandler(fetch(`${authOptions.baseUrl}/signin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email, password})
+    }));
+  }
+
+  getContent = (token) => {
+    return this._promiseHandler(fetch(`${authOptions.baseUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       }
-    })
-    .then(res => res)
-    .catch(err => console.log(err));
+    }));
   }
 }
 

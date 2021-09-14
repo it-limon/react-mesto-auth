@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -10,18 +10,25 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/api';
+import auth from '../utils/auth';
 import { AppContext } from '../contexts/AppContext';
 import { appRoutes } from '../utils/constants';
+import { useHistory } from 'react-router-dom';
 
 function App() {
+  const hst = useHistory();
+
   const [currentUser, setCurrentUser] = useState({});
+  const [currentEmail, setCurrentEmail] = useState('');
   const [cards, setCards] = useState([]);
 
   const [isPopupProfileOpen, setIsPopupProfileOpen] = useState(false);
   const [isPopupCardOpen, setIsPopupCardOpen] = useState(false);
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleButtonEditProfileClick = () => setIsPopupProfileOpen(true);
   const handleButtonAddCardClick = () => setIsPopupCardOpen(true);
@@ -31,8 +38,14 @@ function App() {
     setIsPopupProfileOpen(false);
     setIsPopupCardOpen(false);
     setIsPopupAvatarOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard(null);
   }
+
+  const showInfoToolTip = (isError) => {
+    setIsError(isError);
+    setIsInfoTooltipOpen(true);
+  };
 
   useEffect(() => {
     const promises = [api.getUserInfo(), api.getInitialCards()];
@@ -44,6 +57,29 @@ function App() {
       })
       .catch(err => console.log(err));
   }, []);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      auth.getContent(jwt)
+      .then((authInfo) => {
+        setCurrentEmail(authInfo.data.email);
+
+        setLoggedIn(true);
+        hst.push(appRoutes.root);
+      })
+      .catch(() => showInfoToolTip(true));
+    }
+  }, [hst]);
+
+  const handleLogin = () => {
+    setLoggedIn(true);
+  }
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+  }
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -91,7 +127,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{currentUser, loggedIn}}>
+    <AppContext.Provider value={{currentUser, currentEmail, loggedIn, showInfoToolTip, handleLogin, handleLogout}}>
       <Switch>
         <ProtectedRoute
           exact
@@ -107,10 +143,10 @@ function App() {
           component={Main}
         />
         <Route exact path={appRoutes.signUp}>
-          {loggedIn ? <Redirect to={appRoutes.root} /> : <Register />}
+          <Register />
         </Route>
         <Route exact path={appRoutes.signIn}>
-          {loggedIn ? <Redirect to={appRoutes.root} /> : <Login />}
+          <Login />
         </Route>
       </Switch>
 
@@ -138,7 +174,8 @@ function App() {
       />
 
       <InfoTooltip
-        isOpen={isPopupAvatarOpen}
+        isOpen={isInfoTooltipOpen}
+        isError={isError}
         onClose={closeAllPopups}
       />
     </AppContext.Provider>

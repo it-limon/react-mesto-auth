@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { appRoutes } from '../utils/constants';
 
 const ProtectedRoute = ({ component: Component, ...otherProps }) => {
-  const {
-    loggedIn
-  } = otherProps;
+  const loggedIn = otherProps.loggedIn;
 
   return (
     <Route>
@@ -15,7 +13,8 @@ const ProtectedRoute = ({ component: Component, ...otherProps }) => {
 }
 
 ProtectedRoute.propTypes = {
-
+  loggedIn: PropTypes.bool.isRequired,
+  component: PropTypes.func.isRequired
 };
 
 export default ProtectedRoute;

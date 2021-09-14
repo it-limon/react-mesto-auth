@@ -1,11 +1,21 @@
 import { Link, useHistory } from 'react-router-dom';
 import { appRoutes } from '../utils/constants';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
 const HeaderMenu = (props) => {
   const hst = useHistory();
+  const email = useContext(AppContext).currentEmail;
+  const handleLogout = useContext(AppContext).handleLogout;
 
   const { isMobile, isInactive, loggedIn } = props;
+
+  const signOut = () => {
+    localStorage.removeItem('jwt');
+    handleLogout();
+    hst.push(appRoutes.signIn);
+  }
 
   return (
     <nav
@@ -13,10 +23,10 @@ const HeaderMenu = (props) => {
         isInactive && isMobile ? ' header__menu_inactive' : ''
       }${isMobile ? ' header__menu_mobile' : ''}`}
     >
-      {loggedIn && <h2 className='header__menu-heading'>EmaiEmail@Email</h2>}
+      {loggedIn && <h2 className='header__menu-heading'>{email}</h2>}
       <ul className='header__menu-links'>
         {loggedIn ? (
-          <li className='link header__menu-link'>Выйти</li>
+          <li><button className='link header__menu-link header__menu-button' onClick={signOut}>Выйти</button></li>
         ) : hst.location.pathname === appRoutes.signIn ? (
           <li>
             <Link className='link header__menu-link' to={appRoutes.signUp}>
