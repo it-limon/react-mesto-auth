@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -67,11 +67,20 @@ function App() {
   }, [hst]);
 
   useEffect(() => {
+    const closeByEscape = (evt) => {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('keydown', closeByEscape);
+
+    return () => document.removeEventListener('keydown', closeByEscape);
+  }, []);
+
+  useEffect(() => {
     loadData();
   }, [loadData, hst]);
-
-  const handleLogin = () => loadData();
-  const handleLogout = () => setLoggedIn(false);
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -94,7 +103,10 @@ function App() {
   const handleUpdateUser = ({name, about}) => {
     api.setUserInfo(name, about)
     .then(userInfo => {
-      setCurrentUser(userInfo);
+      setCurrentUser({
+        ...currentUser,
+        ...userInfo
+      });
       closeAllPopups();
     })
     .catch(err => console.log(err));
@@ -103,7 +115,10 @@ function App() {
   const handleUpdateAvatar = (avatar) => {
     api.setUserAvatar(avatar)
       .then(userInfo => {
-        setCurrentUser(userInfo);
+        setCurrentUser({
+          ...currentUser,
+          ...userInfo
+        });
         closeAllPopups();
       })
       .catch(err => console.log(err));
@@ -118,8 +133,36 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  const handleRegister = ({ email, password }) => {
+    auth.register(email, password)
+    .then(() => {
+      hst.push(appRoutes.signIn);
+      showInfoToolTip(false);
+    })
+    .catch(() => {
+      showInfoToolTip(true);
+    });
+  };
+
+  const handleAuthorize = ({ email, password }) => {
+    auth.authorize(email, password)
+    .then(data => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        loadData();
+      } else {
+        showInfoToolTip(true);
+      }
+    })
+    .catch(() => {
+      showInfoToolTip(true);
+    });
+  }
+
+  const handleLogout = () => setLoggedIn(false);
+
   return (
-    <AppContext.Provider value={{currentUser, loggedIn, showInfoToolTip, handleLogin, handleLogout}}>
+    <AppContext.Provider value={{currentUser, loggedIn, showInfoToolTip, handleAuthorize, handleRegister, handleLogout}}>
       <Switch>
         <ProtectedRoute
           exact
@@ -135,10 +178,10 @@ function App() {
           component={Main}
         />
         <Route exact path={appRoutes.signUp}>
-          <Register />
+          {loggedIn ? <Redirect to={appRoutes.root} />  : <Register />}
         </Route>
         <Route exact path={appRoutes.signIn}>
-          <Login />
+          {loggedIn ? <Redirect to={appRoutes.root} /> : <Login />}
         </Route>
       </Switch>
 

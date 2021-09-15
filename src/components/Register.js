@@ -1,14 +1,11 @@
 import { useState, useContext } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../contexts/AppContext';
 import { appRoutes } from '../utils/constants';
 import Header from './Header';
 
 const Register = () => {
-  const showInfoToolTip = useContext(AppContext).showInfoToolTip;
-
-  const hst = useHistory();
+  const handleRegister = useContext(AppContext).handleRegister;
 
   const [registerData, setRegisterData] = useState({});
   const handleChange = (evt) => {
@@ -20,16 +17,7 @@ const Register = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    auth
-      .register(registerData.email, registerData.password)
-      .then(() => {
-        hst.push(appRoutes.signIn);
-        showInfoToolTip(false);
-      })
-      .catch(() => {
-        showInfoToolTip(true);
-      });
+    handleRegister(registerData);
   };
 
   return (

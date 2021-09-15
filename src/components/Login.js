@@ -1,11 +1,9 @@
 import { useState, useContext } from 'react';
-import auth from '../utils/auth';
 import { AppContext } from '../contexts/AppContext';
 import Header from './Header';
 
 const Login = () => {
-  const showInfoToolTip = useContext(AppContext).showInfoToolTip;
-  const handleLogin = useContext(AppContext).handleLogin;
+  const handleAuthorize = useContext(AppContext).handleAuthorize;
 
   const [loginData, setLoginData] = useState({});
   const handleChange = (evt) => {
@@ -17,20 +15,7 @@ const Login = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    auth.authorize(loginData.email, loginData.password)
-    .then(data => {
-      if (data.token) {
-        setLoginData({});
-        localStorage.setItem('jwt', data.token);
-        handleLogin();
-      } else {
-        showInfoToolTip(true);
-      }
-    })
-    .catch(() => {
-      showInfoToolTip(true);
-    });
+    handleAuthorize(loginData);
   }
 
   return (
